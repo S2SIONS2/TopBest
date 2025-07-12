@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
   // Get game details by appid
   if (appId) {
     try {
-      const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}&key=${apiKey}&l=korean`);
+      const response = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}&l=korean`);
       if (!response.ok) {
         throw new Error(`Failed to fetch game details for appid: ${appId}`);
       }

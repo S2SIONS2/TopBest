@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 // Define types for the data we expect from the API
 interface SearchResult {
@@ -94,13 +95,14 @@ export default function AddBestPage() {
   return (
     <main className="flex min-h-screen flex-col items-center p-8 sm:p-12 md:p-24">
       <div className="w-full max-w-2xl relative">
-        <h1 className="text-4xl font-bold mb-8 text-center">Search for a Steam Game</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center">내가 플레이했던 최고의 스팀 게임</h1>
         <div className="relative mb-4">
+          <p className="text-sm text-gray-400 mb-2">검색이 안된다면 영어로 검색해주세요.</p>
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Enter a game title (in English)..."
+            placeholder="스팀 게임을 검색해주세요."
             className="border p-2 rounded w-full text-black bg-gray-100 focus:bg-white"
             onFocus={() => setIsDropdownVisible(true)}
           />
@@ -122,8 +124,15 @@ export default function AddBestPage() {
 
         {selectedGame && (
           <article className="mt-8 p-6 bg-gray-800 border border-gray-700 rounded-lg shadow-xl w-full">
-            <h2 className="text-3xl font-bold mb-4">{selectedGame.name}</h2>
-            <img src={selectedGame.header_image} alt={selectedGame.name} className="w-full h-auto rounded-md mb-4" />
+            <Image
+              src={selectedGame.header_image}
+              alt={selectedGame.name}
+              width={600}
+              height={300}
+              className="w-full h-auto rounded-md mb-4"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
             <p className="text-sm text-gray-400 mb-4" dangerouslySetInnerHTML={{ __html: selectedGame.short_description }}></p>
             <div className="text-sm">
               <p><strong className="font-semibold">Release Date:</strong> {selectedGame.release_date.date}</p>
